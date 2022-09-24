@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/TheBozzz34/leveling-bot/issues"
   },
-  "homepage": "https://github.com/TheBozzz34/leveling-bot#readme"
+  "homepage": "https://github.com/TheBozzz34/leveling-bot#readme",
+  "dependencies": {
+    "discord.js": "^14.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.24.0"
+  }
 }
