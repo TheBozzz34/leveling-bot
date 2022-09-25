@@ -75,6 +75,18 @@ client.on('guildMemberRemove', member => {
 
 
 client.on('messageCreate', message => {
+	if (message.content.includes('discord.gg/' || 'discordapp.com/invite/')) {
+		message.delete()
+			.then(message => {
+				const inviteEmbed = new EmbedBuilder()
+					.setColor(0x0099FF)
+					.setTitle('**' + message.author.tag + '** has been warned for sending an invite link')
+					.setDescription('**' + message.content + '**')
+					.setTimestamp()
+					.setFooter({ text: 'Written by Sadan#9264', iconURL: 'https://cdn-icons-png.flaticon.com/512/539/539043.png' });
+				message.guild.channels.cache.find(i => i.name === '📛・moderation-logs').send({ embeds: [inviteEmbed] });
+			});
+	  }
 	if (message.author.bot) return;
 	if (message.channel.type === 'DM') return;
 	if (message.content.startsWith('!')) return;

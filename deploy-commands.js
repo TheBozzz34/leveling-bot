@@ -4,6 +4,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord.js');
 const { clientId, guildId, token } = require('./config.json');
 
+
 const commands = [];
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -19,3 +20,9 @@ const rest = new REST({ version: '10' }).setToken(token);
 rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
 	.then(() => console.log('Successfully registered application commands.'))
 	.catch(console.error);
+
+/*
+rest.put(Routes.applicationCommands(clientId), { body: commands }, { headers: { 'X-Audit-Log-Reason': 'Deploying commands' } })
+	.then(() => console.log('Successfully registered application commands.'))
+	.catch(console.error);
+*/
