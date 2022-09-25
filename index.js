@@ -2,7 +2,7 @@ const chalk = require('chalk');
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder } = require('discord.js');
-const { token, guildId, clientId } = require('./config.json');
+const { token, guildId, clientId, mongoURL } = require('./config.json');
 
 const client = new Client({
 	intents: [
@@ -22,7 +22,7 @@ const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
 const Levels = require('discord-xp');
-Levels.setURL('mongodb+srv://root:848200@cluster0.tu5vc.mongodb.net');
+Levels.setURL(mongoURL);
 
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
@@ -71,6 +71,16 @@ client.on('guildMemberRemove', member => {
 		.setFooter({ text: 'Written by Sadan#9264', iconURL: 'https://cdn-icons-png.flaticon.com/512/539/539043.png' });
 	member.guild.channels.cache.find(i => i.name === '👋・joins-leaves').send({ embeds: [leaveEmbed] });
 	Levels.deleteUser(member.user.id, guildId);
+});
+
+
+client.on('messageCreate', message => {
+	if (message.author.bot) return;
+	if (message.channel.type === 'DM') return;
+	if (message.content.startsWith('!')) return;
+	const randomXp = Math.floor(Math.random() * 29) + 1;
+	Levels.appendXp(message.author.id, guildId, randomXp);
+	// message.channel.send({ content: 'You have gained ' + randomXp + ' XP!' });
 });
 
 client.login(token);

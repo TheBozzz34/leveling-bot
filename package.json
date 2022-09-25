@@ -24,7 +24,8 @@
     "chalk": "^4.1.2",
     "discord-xp": "^1.1.16",
     "discord.js": "^14.4.0",
-    "pino": "^7.0.0-rc.9"
+    "pino": "^7.0.0-rc.9",
+    "random-hex": "^1.0.2"
   },
   "devDependencies": {
     "eslint": "^8.24.0"
