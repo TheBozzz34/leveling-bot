@@ -2,7 +2,7 @@ const chalk = require('chalk');
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const { token, guildId, clientId, mongoURL } = require('./config.json');
+const { token, guildId, mongoURL } = require('./config.json');
 
 
 const client = new Client({
@@ -99,6 +99,7 @@ client.on('guildMemberRemove', member => {
 client.on('messageCreate', message => {
 	if (message.content.includes('discord.gg/' || 'discordapp.com/invite/' || 'discord.com/invite/')) {
 		message.delete()
+			// eslint-disable-next-line no-shadow
 			.then(message => {
 				const inviteEmbed = new EmbedBuilder()
 					.setColor(0x0099FF)
@@ -108,7 +109,7 @@ client.on('messageCreate', message => {
 					.setFooter({ text: 'Written by Sadan#9264', iconURL: 'https://cdn-icons-png.flaticon.com/512/539/539043.png' });
 				message.guild.channels.cache.find(i => i.name === '📛・moderation-logs').send({ embeds: [inviteEmbed] });
 			});
-	  }
+	}
 	if (message.author.bot) return;
 	if (message.channel.type === 'DM') return;
 	if (message.content.startsWith('!')) return;
